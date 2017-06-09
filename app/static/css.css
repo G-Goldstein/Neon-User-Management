@@ -1,0 +1,40 @@
+
+table {
+	margin-top: 10px;
+}
+
+#maindiv{
+	margin:10px;
+}
+
+ul{
+	list-style-type: none;
+}
+
+#add {
+	display: none;
+}
+
+.red{
+	color: red;
+}
+
+#edit {
+	display: none;
+}
+
+#addSensitive {
+	display: none;
+}
+
+.fieldrow {
+	font-size: 80%;
+}
+
+.inline {
+	display: inline-block;
+}
+
+.description {
+	font-size: 1em;
+}
