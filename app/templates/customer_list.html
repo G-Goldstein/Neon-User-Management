@@ -4,21 +4,21 @@
 			
 				<thead>
 					<tr>
-						<th>Username</th>
+						<th>Customer</th>
 					</tr>
 				</thead>
 
 				<tfoot>
 					<tr>
-						<th>Username</th>
+						<th>Customer</th>
 					</tr>
 				</tfoot>		
 				
 				<tbody>
 				   
-					{% for user in users %}
+					{% for customer in customers %}
 					<tr>
-						<td>{{ user.userid }}</a></td>
+						<td><a href="{{url_for('userList', firmcode = customer[0][7:10])}}">{{ customer[0] }}</a></td>
 					</tr>	
 					{% endfor %}
 					
