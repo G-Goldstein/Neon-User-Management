@@ -29,10 +29,9 @@ def login():
 	
 def connect():
 
-	print('ok')
+	path = os.path.join(os.getcwd(),'app','jt400.jar')
+	connection = jaydebeapi.connect('com.ibm.as400.access.AS400JDBCDriver', 'jdbc:as400://10.195.2.70;ccsid=285;translate binary=true;naming=system;prompt=false;libraries=CNEODTA002', [session['username'],  session['password']], path,)
 
-	connection = jaydebeapi.connect('com.ibm.as400.access.AS400JDBCDriver', 'jdbc:as400://10.195.2.70;ccsid=285;translate binary=true;naming=system;prompt=false;libraries=CNEODTA002', [session['username'],  session['password']], 'jt400.jar',)
-	print('still ok')
 	return connection
 
 mypool =  pool.QueuePool(connect, max_overflow=10, pool_size=5)
