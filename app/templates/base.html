@@ -3,7 +3,7 @@
 	<head>
 		<title>Neon User Management</title>	
 		<link rel="stylesheet" type=text/css href="{{ url_for('static', filename='css.css') }}">
-		<link rel="shortcut icon" href="{{ url_for('static', filename='jhc.ico') }}">		
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon-96x96.png') }}">		
 		<link rel="stylesheet" type=text/css href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">			
 		<link rel="stylesheet" type=text/css href="https://cdn.datatables.net/1.10.11/css/jquery.dataTables.min.css">			
 		<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>  
@@ -13,6 +13,18 @@
 
 	<body>
 	
+
+		{% with messages = get_flashed_messages(with_categories=true) %}
+		{% if messages %}
+			{% for category, message in messages %}
+			<ul class="flashes alert {% if category %}{{category}}{% else %}alert-danger{% endif %}">
+				<li>{{ message }}</li>
+			</ul>
+			{% endfor %}
+		{% endif %}
+		{% endwith %}
+
+
 		<div id="maindiv">
 		{% block content %}{% endblock %}
 		</div>

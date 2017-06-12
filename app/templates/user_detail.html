@@ -1,9 +1,13 @@
+{% from 'macros.html' import render_form %}
+
 {% extends "base.html" %}{% block content %}
+
+
 
 			<form>
 			<input Type="button" Value="Back" Onclick="window.location.href='{{url_for('userList', firmcode=firmcode)}}'" class="btn btn-primary">
 			</form>
 
-
+			{{ render_form(userForm) }}
 	
 {% endblock %}

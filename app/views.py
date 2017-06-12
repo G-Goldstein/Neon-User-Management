@@ -1,9 +1,14 @@
-from flask import Blueprint, session, flash, redirect, url_for, render_template
-from flask.ext.wtf import Form
-from wtforms import TextField, PasswordField, validators
+from flask import Blueprint, session, flash, redirect, url_for, render_template, request
+
 import jaydebeapi, os, json
 
+from flask.ext.wtf import Form
+from wtforms import TextField, SelectField, HiddenField, validators, IntegerField, PasswordField 
+from wtforms_components import read_only
+from wtforms.validators import Length, Required
+
 from app import app
+
 
 class LoginForm(Form):
     username = TextField('Username', [validators.Required()])
@@ -51,10 +56,39 @@ def logged_in():
 class User:
 
 	def __init__(self):
-		self.username = None
+		self.userid = None
 		self.forename = None
 		self.surname = None
+		self.isInWorkflow = None
+		self.group = None
+		self.role = None
 
+
+class UserForm(Form):
+
+	user_id = TextField('user Id')
+	forename = TextField('Forename')
+	surname = TextField('Surname')
+	role_id = SelectField('Role', coerce=int)
+	group_id = SelectField('Group', coerce=int)
+	
+	def __init__(self, firmcode, *args, **kwargs):
+		super(UserForm, self).__init__(*args, **kwargs)	
+	
+		library = getCurrentLibrary(firmcode)
+		library = library[0]
+
+		results = execute_query('''SELECT DISTINCT role_id, role_description FROM {}.role'''.format(library))
+		self.role_id.choices = [(0,"")]
+		for result in results.fetchall():
+			self.role_id.choices.append((int(result[0]), result[1]))
+
+		results = execute_query('''SELECT DISTINCT group_id, group_description FROM {}.permission_user_group'''.format(library))
+		self.group_id.choices = [(0,"")]
+		for result in results.fetchall():
+			self.group_id.choices.append((int(result[0]), result[1]))
+
+		read_only(self.user_id)
 
 
 #########################################################
@@ -74,7 +108,7 @@ def getUsers(firmcode):
 	library = getCurrentLibrary(firmcode)
 	library = library[0]
 
-	sql = 'SELECT userid, forename, surname FROM ' + library.strip() + '.user'
+	sql = 'SELECT trim(userid), forename, surname FROM ' + library.strip() + '.user'
 
 	results = execute_query(sql)
 	
@@ -85,17 +119,79 @@ def getUser(firmcode, userid):
 	library = getCurrentLibrary(firmcode)
 	library = library[0]
 
-	sql = 'SELECT userid, forename, surname FROM ' + library.strip() + '.user'
+	sql = '''SELECT trim(u.userid), trim(u.forename), trim(u.surname), trim(w.wfuusr), ur.role_id, ug.group_id
+					   FROM {}.user AS u
+					     LEFT OUTER JOIN {}.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN {}.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN {}.user_group_link AS ug ON u.userid = ug.userid
+					  WHERE u.userid = '{}' 
+					  '''.format(library, library, library, library, userid)
 
 	result = execute_query(sql)	
 	result = result.fetchone()
 
 	user = User()
-	user.userid = result[0]
+	user.user_id = result[0]
 	user.forename = result[1]
 	user.surname = result[2]
-	
+	user.isInWorkflow = result[3]
+	user.group_id = result[5]
+	user.role_id = result[4]
+
+
 	return user
+
+def updateUser(firmcode, user_id, forename, surname, group_id, role_id):
+
+	library = getCurrentLibrary(firmcode)
+	library = library[0]
+
+	sql = '''UPDATE {}.user
+						 SET forename = trim('{}'), surname = trim('{}')
+						WHERE user_id = '{}' '''.format(library, forename, surname, user_id)
+
+	execute_query(sql)		
+
+	if role_id == 0:
+
+		sql = '''DELETE FROM {}.user_role_link					 
+						  WHERE user_id = '{}' '''.format(library, user_id)
+		execute_query(sql)					 
+
+	else:
+
+		sql = '''INSERT INTO {}.user_role_link (user_id, role_id)
+		           SELECT DISTINCT '{}', '{}'
+		             FROM {}.user_role_link AS ur1
+		               EXCEPTION JOIN {}.user_role_link AS ur2 ON ur2.user_id = '{}'
+		                                                      AND ur2.role_id = '{}' '''.format(library, user_id, role_id, library, library, user_id, role_id)
+		execute_query(sql)	
+
+		sql = '''DELETE FROM {}.user_role_link					 
+						  WHERE user_id = '{}' 
+						    AND role_id <> {}'''.format(library, user_id, role_id)
+		execute_query(sql)			                                                      
+
+
+	if group_id ==0:
+
+		sql = '''DELETE FROM {}.user_group_link					 
+						  WHERE user_id = '{}' '''.format(library, user_id)
+		execute_query(sql)					  
+
+	else:
+
+		sql = '''INSERT INTO {}.user_group_link (user_id, group_id)
+		           SELECT DISTINCT '{}', '{}'
+		             FROM {}.user_group_link AS ug1
+		               EXCEPTION JOIN {}.user_group_link AS ug2 ON ug2.user_id = '{}'
+		                                                      AND ug2.group_id = '{}'  '''.format(library, user_id, group_id, library, library, user_id, group_id)
+		execute_query(sql)	
+
+		sql = '''DELETE FROM {}.user_group_link					 
+						  WHERE user_id = '{}' 
+						    AND group_id <> '{}'  '''.format(library, user_id, group_id)
+		execute_query(sql)	
 
 
 #########################################################
@@ -136,10 +232,34 @@ def userList(firmcode):
 	return render_template("user_list.html", users=getUsers(firmcode), firmcode=firmcode)
 
 
-@app.route('/customer/<firmcode>/<userid>')
+@app.route('/customer/<firmcode>/<userid>', methods=['GET','POST'])
 def userDetail(firmcode, userid):
 	 
 	if not logged_in():
 		return redirect(url_for('login'))	
+
+	user=getUser(firmcode, userid)	
+
+	userForm = UserForm(firmcode=firmcode)
+
+
+	if request.method == 'POST':
+	
+		if userForm.validate():
+		
+			updateUser(firmcode, userForm.user_id.data, userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data)
+			flash('Updated successfully', 'alert-success')
+
+	else:
+
+		userForm.user_id.data = user.user_id
+		userForm.forename.data = user.forename
+		userForm.surname.data = user.surname
+		userForm.group_id.data = user.group_id
+		userForm.role_id.data = user.role_id
+
+
+
+
 	 
-	return render_template("user_detail.html", user=getUser(firmcode, userid), firmcode=firmcode)	
+	return render_template("user_detail.html", userForm=userForm, firmcode=firmcode)	
