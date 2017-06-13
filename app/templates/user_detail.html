@@ -3,11 +3,19 @@
 {% extends "base.html" %}{% block content %}
 
 
-
-			<form>
+			<div>
+			<form style="float: left;">
 			<input Type="button" Value="Back" Onclick="window.location.href='{{url_for('userList', firmcode=firmcode)}}'" class="btn btn-primary">
 			</form>
 
+			{% if userForm.user_id.data %}<form style="float: right;" action="{{url_for('deleteUser', firmcode=firmcode, user_id = userForm.user_id.data)}}" method="post">
+			<input Type="submit" Value="Delete User" class="btn btn-primary" >
+			</form>{% endif %}
+
+			</div>
+
+			<div style="clear: left;">
 			{{ render_form(userForm) }}
-	
+			</div>	
+
 {% endblock %}
