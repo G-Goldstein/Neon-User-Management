@@ -1,30 +1,22 @@
 from flask import Blueprint, session, flash, redirect, url_for, render_template, request
-
 from ldap3 import Connection, Server, ANONYMOUS, SIMPLE, SYNC, ASYNC, ALL, SUBTREE
-
-import jaydebeapi, os, json, jpype
-import sqlalchemy.pool as pool
-
 from flask.ext.wtf import Form
 from wtforms import TextField, SelectField, HiddenField, validators, IntegerField, PasswordField 
 from wtforms_components import read_only
 from wtforms.validators import Length, Required, Email
 
+import jaydebeapi, os, json, jpype
+import sqlalchemy.pool as pool
+
 from app import app
 
-
-class LoginForm(Form):
-    username = TextField('Username', [validators.Required()])
-    password = PasswordField('Password')	
-	
 def getconn():
 
 	path = os.path.join(os.getcwd(),'app','jt400.jar')
-	connection = jaydebeapi.connect('com.ibm.as400.access.AS400JDBCDriver', 'jdbc:as400://10.195.2.70;ccsid=285;translate binary=true;naming=system;prompt=false;', [session['username'],  session['password']], path,)
-	return connection
+	return jaydebeapi.connect('com.ibm.as400.access.AS400JDBCDriver', 'jdbc:as400://10.195.2.70;ccsid=285;translate binary=true;naming=system;prompt=false;', [session['username'],  session['password']], path,)
+
 
 mypool =  pool.QueuePool(getconn, max_overflow=10, pool_size=5)
-
 
 
 def execute_query(sql, parms = []):
@@ -38,18 +30,20 @@ def execute_query(sql, parms = []):
 
 	return cursor
 
+
 def getCurrentLibrary(firmcode):
 
 	sql = '''SELECT envllb              
 					  FROM envconfig.envlib    
-					WHERE envlen = 'CNEOLIV' || {} 
+					WHERE envlen = 'CNEOLIV' || '{}' 
 					  AND envlap = '*BASE'     
-					  AND envlsq = 10'''.format("'" + str(firmcode) + "'")   
+					  AND envlsq = 10'''.format(str(firmcode))   
 
 	result = execute_query(sql)
 	library = result.fetchone()	
 	return library[0]			  
 	
+
 def logged_in():
 
 	if 'username' not in session or 'password' not in session or session['username'] == None or session['password'] == None:
@@ -70,13 +64,18 @@ def logged_in():
 #########################################################
 class User:
 
-	def __init__(self):
-		self.userid = None
-		self.forename = None
-		self.surname = None
-		self.email = None
-		self.group = None
-		self.role = None
+	def __init__(self, user_id, forename, surname, email, group_id, role_id):
+		self.user_id = user_id
+		self.forename = forename
+		self.surname = surname
+		self.email = email
+		self.group_id = group_id
+		self.role_id = role_id
+
+
+class LoginForm(Form):
+    username = TextField('Username', [validators.Required()])
+    password = PasswordField('Password')	
 
 
 class UserForm(Form):
@@ -103,7 +102,7 @@ class UserForm(Form):
 		for result in results.fetchall():
 			self.group_id.choices.append((int(result[0]), result[1]))
 
-		if isNew == None:
+		if not isNew:
 			read_only(self.user_id)
 
 
@@ -112,9 +111,7 @@ class UserForm(Form):
 #########################################################
 def getCustomers():
 
-	sql = '''SELECT enveen FROM envconfig.envenv WHERE enveen LIKE 'CNEOLIV%' '''
-
-	results = execute_query(sql)
+	results = execute_query("SELECT enveen FROM envconfig.envenv WHERE enveen LIKE 'CNEOLIV%' ")
 	
 	return results.fetchall()
 
@@ -147,21 +144,12 @@ def getUser(firmcode, userid):
 					     LEFT OUTER JOIN {}.user_role_link AS ur ON u.userid = ur.userid
 					     LEFT OUTER JOIN {}.user_group_link AS ug ON u.userid = ug.userid
 					     LEFT OUTER JOIN {}.person AS p ON u.percod = p.uecode
-					  WHERE u.userid = '{}' 
-					  '''.format(library, library, library, library, library, userid)
+					  WHERE u.userid = '{}' '''.format(library, library, library, library, library, userid)
 
 	result = execute_query(sql)	
 	result = result.fetchone()
 
-	user = User()
-	user.user_id = result[0]
-	user.forename = result[1]
-	user.surname = result[2]
-	user.group_id = result[4]
-	user.role_id = result[3]
-	user.email = result[5]
-
-	return user
+	return User(result[0], result[1], result[2], result[5], result[4], result[3])
 
 def updateUser(firmcode, user_id, forename, surname, group_id, role_id, email):
 
