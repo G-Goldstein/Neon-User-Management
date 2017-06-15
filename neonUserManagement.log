@@ -291,3 +291,818 @@
 					  AND envlsq = 10
 2017-06-15 16:10:58,544 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB002.role
 2017-06-15 16:10:58,671 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB002.permission_user_group
+2017-06-15 16:15:59,908 INFO Application started
+2017-06-15 16:16:01,086 INFO Application started
+2017-06-15 16:24:36,128 DEBUG Call made: http://172.16.2.61:5002/customer/002/ by user raisona
+2017-06-15 16:24:36,130 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:24:37,289 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:24:37,419 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:24:38,485 DEBUG Call made: http://172.16.2.61:5002/customer/ by user raisona
+2017-06-15 16:24:38,486 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:24:38,598 DEBUG SELECT enveen FROM envconfig.envenv WHERE enveen LIKE 'CNEOLIV%' 
+2017-06-15 16:24:43,706 DEBUG Call made: http://172.16.2.61:5002/customer/002/ by user raisona
+2017-06-15 16:24:43,706 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:24:43,841 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:24:44,087 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:24:47,258 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/RAISONA by user raisona
+2017-06-15 16:24:47,258 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:24:47,374 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:24:47,493 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:24:47,757 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:24:47,868 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB002.role
+2017-06-15 16:24:47,994 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB002.permission_user_group
+2017-06-15 16:29:50,967 INFO Application started
+2017-06-15 16:30:01,537 INFO Application started
+2017-06-15 16:30:02,729 INFO Application started
+2017-06-15 16:30:07,019 DEBUG Call made: http://172.16.2.61:5002/ by user raisona
+2017-06-15 16:30:07,020 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:30:20,320 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:30:20,321 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:30:20,450 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:30:20,571 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:30:50,959 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:30:50,960 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:30:51,077 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:30:51,206 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:30:56,047 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:30:56,048 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:30:56,229 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:30:56,340 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:30:56,535 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:30:56,643 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB002.role
+2017-06-15 16:30:56,739 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB002.permission_user_group
+2017-06-15 16:30:59,646 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:30:59,646 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:30:59,760 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:30:59,870 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:32:14,706 INFO Application started
+2017-06-15 16:32:15,883 INFO Application started
+2017-06-15 16:32:16,074 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:32:16,074 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:32:17,202 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:17,316 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:32:19,509 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:32:19,509 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:32:19,620 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:19,734 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:32:20,026 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:20,155 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:32:20,289 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:32:31,543 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:32:31,543 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:32:31,658 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:31,764 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:32:31,933 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:32,041 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:32:32,128 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:32:38,362 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:32:38,363 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:32:38,646 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:38,755 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:32:38,926 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:39,043 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:32:39,125 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:32:39,291 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:39,401 DEBUG UPDATE CNEODTB001.user
+						 SET forename = trim('Alex'), surname = trim('Raison')
+						WHERE user_id = 'RAISONA' 
+2017-06-15 16:32:39,545 DEBUG DELETE FROM CNEODTB001.user_role_link					 
+					  WHERE user_id = 'RAISONA' 
+					    AND role_id <> 2
+2017-06-15 16:32:39,732 DEBUG INSERT INTO CNEODTB001.user_role_link (user_id, role_id)
+	           SELECT DISTINCT 'RAISONA', '2'
+	             FROM CNEODTB001.user_role_link AS ur1
+	               EXCEPTION JOIN CNEODTB001.user_role_link AS ur2 ON ur2.user_id = 'RAISONA'
+	                                                      AND ur2.role_id = '2' 
+2017-06-15 16:32:39,950 DEBUG DELETE FROM CNEODTB001.user_group_link					 
+					  WHERE user_id = 'RAISONA' 
+					    AND group_id <> '1'  
+2017-06-15 16:32:40,115 DEBUG INSERT INTO CNEODTB001.user_group_link (user_id, group_id)
+	           SELECT DISTINCT 'RAISONA', '1'
+	             FROM CNEODTB001.user_group_link AS ug1
+	               EXCEPTION JOIN CNEODTB001.user_group_link AS ug2 ON ug2.user_id = 'RAISONA'
+	                                                      AND ug2.group_id = '1'  
+2017-06-15 16:32:40,291 DEBUG UPDATE CNEODTB001.person
+						 SET ueeml = trim('alex.raison@jhc.co.uk')
+						WHERE uecode = '*'||'RAISONA' 
+2017-06-15 16:32:41,936 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:32:41,937 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:32:42,047 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:32:42,157 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:33:17,156 DEBUG Call made: http://172.16.2.61:5002/new by user raisona
+2017-06-15 16:33:17,156 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:33:17,265 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:33:17,372 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:33:17,458 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:33:31,804 DEBUG Call made: http://172.16.2.61:5002/new by user raisona
+2017-06-15 16:33:31,806 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:33:31,914 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:33:32,024 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:33:32,108 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:33:32,274 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:33:32,384 DEBUG INSERT INTO CNEODTB001.user (userid, title, fornam, surnam,
+                       paswrd, pasexp, mangid, failat, enabled, uecode)
+             VALUES('RAISONA2', '.', 'Alex', 'Raison', 'password', '2030-01-01', 'RAISONA2', 0, 'Y', '*' || 'RAISONA2')
+2017-06-15 16:33:32,597 DEBUG INSERT INTO CNEODTB001.user_role_link (user_id, role_id)
+		           VALUES( 'RAISONA2', '1' )
+2017-06-15 16:33:32,761 DEBUG INSERT INTO CNEODTB001.user_group_link (user_id, group_id)
+		           VALUES( 'RAISONA2', '1' ) 
+2017-06-15 16:33:32,927 DEBUG INSERT INTO CNEODTB001.wfusrs (wfuusr, wfumgr, wfuutp, wfudpt, wfualc, wfusts, wfuaus)
+	          VALUES( 'RAISONA2', 'RAISONA2', 'IM', 'CRM', 1, 'N', 'RAISONA' )	
+2017-06-15 16:33:33,098 DEBUG INSERT INTO CNEODTB001.person (uecode, ueqry, ueeml) VALUES('*RAISONA2', 'Y', 'alex.raison@jhc.co.uk')
+2017-06-15 16:33:33,379 ERROR Adding user to LDAP alex.raison@jhc.co.uk failed with error {'result': 68, 'description': 'entryAlreadyExists', 'dn': '', 'message': '', 'referrals': None, 'type': 'addResponse'}
+2017-06-15 16:33:53,745 DEBUG Call made: http://172.16.2.61:5002/new by user raisona
+2017-06-15 16:33:53,745 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:33:53,862 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:33:53,972 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:33:54,053 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:33:54,214 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:33:54,331 DEBUG INSERT INTO CNEODTB001.user (userid, title, fornam, surnam,
+                       paswrd, pasexp, mangid, failat, enabled, uecode)
+             VALUES('RAISONA2', '.', 'Alex', 'Raison', 'password', '2030-01-01', 'RAISONA2', 0, 'Y', '*' || 'RAISONA2')
+2017-06-15 16:33:54,492 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:33:54,493 DEBUG INSERT INTO CNEODTB001.user_role_link (user_id, role_id)
+		           VALUES( 'RAISONA2', '1' )
+2017-06-15 16:33:55,031 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:33:55,032 DEBUG INSERT INTO CNEODTB001.user_group_link (user_id, group_id)
+		           VALUES( 'RAISONA2', '1' ) 
+2017-06-15 16:33:55,609 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:33:55,609 DEBUG INSERT INTO CNEODTB001.wfusrs (wfuusr, wfumgr, wfuutp, wfudpt, wfualc, wfusts, wfuaus)
+	          VALUES( 'RAISONA2', 'RAISONA2', 'IM', 'CRM', 1, 'N', 'RAISONA' )	
+2017-06-15 16:33:56,131 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:33:56,131 DEBUG INSERT INTO CNEODTB001.person (uecode, ueqry, ueeml) VALUES('*RAISONA2', 'Y', 'alex.raison2@jhc.co.uk')
+2017-06-15 16:33:56,659 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:34:32,962 INFO Application started
+2017-06-15 16:34:35,716 DEBUG Call made: http://172.16.2.61:5002/new by user raisona
+2017-06-15 16:34:35,716 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:34:36,803 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:34:36,923 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:34:37,022 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:34:37,209 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:34:37,316 DEBUG INSERT INTO CNEODTB001.user (userid, title, fornam, surnam,
+                       paswrd, pasexp, mangid, failat, enabled, uecode)
+             VALUES('RAISONA2', '.', 'Alex', 'Raison', 'password', '2030-01-01', 'RAISONA2', 0, 'Y', '*' || 'RAISONA2')
+2017-06-15 16:34:37,452 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:34:37,453 DEBUG INSERT INTO CNEODTB001.user_role_link (user_id, role_id)
+		           VALUES( 'RAISONA2', '1' )
+2017-06-15 16:34:37,984 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:34:37,985 DEBUG INSERT INTO CNEODTB001.user_group_link (user_id, group_id)
+		           VALUES( 'RAISONA2', '1' ) 
+2017-06-15 16:34:38,513 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:34:38,513 DEBUG INSERT INTO CNEODTB001.wfusrs (wfuusr, wfumgr, wfuutp, wfudpt, wfualc, wfusts, wfuaus)
+	          VALUES( 'RAISONA2', 'RAISONA2', 'IM', 'CRM', 1, 'N', 'RAISONA' )	
+2017-06-15 16:34:39,080 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:34:39,080 DEBUG INSERT INTO CNEODTB001.person (uecode, ueqry, ueeml) VALUES('*RAISONA2', 'Y', 'alex.raison3@jhc.co.uk')
+2017-06-15 16:34:39,628 ERROR SQL failed with error message: java.sql.SQLException: [SQL0803] Duplicate key value specified.
+2017-06-15 16:34:39,830 INFO User RAISONA2 created successfully
+2017-06-15 16:34:39,844 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:34:39,844 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:34:39,953 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:34:40,073 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:34:57,002 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA2 by user raisona
+2017-06-15 16:34:57,003 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:34:57,116 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:34:57,231 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA2' 
+2017-06-15 16:34:57,448 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:34:57,562 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:34:57,646 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:34:59,380 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA2/delete by user raisona
+2017-06-15 16:34:59,380 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:34:59,493 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:34:59,604 DEBUG DELETE FROM CNEODTB001.user_group_link WHERE user_id = 'RAISONA2' 
+2017-06-15 16:34:59,821 DEBUG DELETE FROM CNEODTB001.user_role_link WHERE user_id = 'RAISONA2' 
+2017-06-15 16:35:00,021 DEBUG DELETE FROM CNEODTB001.wfusrs WHERE wfuusr = 'RAISONA2' 
+2017-06-15 16:35:00,431 DEBUG SELECT ueeml FROM CNEODTB001.person WHERE uecode = '*'|| 'RAISONA2' 
+2017-06-15 16:35:01,303 DEBUG DELETE FROM CNEODTB001.person WHERE uecode = '*' || 'RAISONA2' 
+2017-06-15 16:35:01,918 DEBUG DELETE FROM CNEODTB001.user WHERE user_id = 'RAISONA2' 
+2017-06-15 16:35:02,679 INFO User RAISONA2 deleted successfully
+2017-06-15 16:35:02,679 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:35:02,842 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:35:06,457 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:35:06,458 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:35:06,569 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:35:06,682 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:35:06,854 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:35:06,970 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:35:07,058 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:35:15,852 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:35:15,852 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:35:15,966 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:35:16,077 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:35:16,258 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:35:16,392 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:35:16,479 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:35:16,639 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:35:16,747 DEBUG UPDATE CNEODTB001.user
+						 SET forename = trim('Alex'), surname = trim('Raison')
+						WHERE user_id = 'RAISONA' 
+2017-06-15 16:35:16,890 DEBUG DELETE FROM CNEODTB001.user_role_link					 
+					  WHERE user_id = 'RAISONA' 
+					    AND role_id <> 2
+2017-06-15 16:35:17,055 DEBUG INSERT INTO CNEODTB001.user_role_link (user_id, role_id)
+	           SELECT DISTINCT 'RAISONA', '2'
+	             FROM CNEODTB001.user_role_link AS ur1
+	               EXCEPTION JOIN CNEODTB001.user_role_link AS ur2 ON ur2.user_id = 'RAISONA'
+	                                                      AND ur2.role_id = '2' 
+2017-06-15 16:35:17,228 DEBUG DELETE FROM CNEODTB001.user_group_link					 
+					  WHERE user_id = 'RAISONA' 
+					    AND group_id <> '1'  
+2017-06-15 16:35:17,384 DEBUG INSERT INTO CNEODTB001.user_group_link (user_id, group_id)
+	           SELECT DISTINCT 'RAISONA', '1'
+	             FROM CNEODTB001.user_group_link AS ug1
+	               EXCEPTION JOIN CNEODTB001.user_group_link AS ug2 ON ug2.user_id = 'RAISONA'
+	                                                      AND ug2.group_id = '1'  
+2017-06-15 16:35:17,538 DEBUG UPDATE CNEODTB001.person
+						 SET ueeml = trim('alex.raison3@jhc.co.uk')
+						WHERE uecode = '*'||'RAISONA' 
+2017-06-15 16:35:17,812 ERROR Adding user to LDAP alex.raison3@jhc.co.uk failed with error {'result': 68, 'description': 'entryAlreadyExists', 'dn': '', 'message': '', 'referrals': None, 'type': 'addResponse'}
+2017-06-15 16:36:13,380 INFO Application started
+2017-06-15 16:36:13,613 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:36:13,613 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:36:14,788 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:36:14,916 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:36:15,096 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:36:15,210 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:36:15,292 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:37:08,476 INFO Application started
+2017-06-15 16:37:13,790 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:37:13,791 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:37:14,876 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:37:15,009 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:37:15,193 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:37:15,310 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:37:15,399 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:37:15,575 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:37:15,685 DEBUG UPDATE CNEODTB001.user
+						 SET forename = trim('Alex'), surname = trim('Raison')
+						WHERE user_id = 'RAISONA' 
+2017-06-15 16:37:15,799 DEBUG DELETE FROM CNEODTB001.user_role_link					 
+					  WHERE user_id = 'RAISONA' 
+					    AND role_id <> 2
+2017-06-15 16:37:15,953 DEBUG INSERT INTO CNEODTB001.user_role_link (user_id, role_id)
+	           SELECT DISTINCT 'RAISONA', '2'
+	             FROM CNEODTB001.user_role_link AS ur1
+	               EXCEPTION JOIN CNEODTB001.user_role_link AS ur2 ON ur2.user_id = 'RAISONA'
+	                                                      AND ur2.role_id = '2' 
+2017-06-15 16:37:16,099 DEBUG DELETE FROM CNEODTB001.user_group_link					 
+					  WHERE user_id = 'RAISONA' 
+					    AND group_id <> '1'  
+2017-06-15 16:37:16,240 DEBUG INSERT INTO CNEODTB001.user_group_link (user_id, group_id)
+	           SELECT DISTINCT 'RAISONA', '1'
+	             FROM CNEODTB001.user_group_link AS ug1
+	               EXCEPTION JOIN CNEODTB001.user_group_link AS ug2 ON ug2.user_id = 'RAISONA'
+	                                                      AND ug2.group_id = '1'  
+2017-06-15 16:37:16,383 DEBUG UPDATE CNEODTB001.person
+						 SET ueeml = trim('alex.raison3@jhc.co.uk')
+						WHERE uecode = '*'||'RAISONA' 
+2017-06-15 16:37:18,375 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:37:18,375 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:37:18,488 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:37:18,600 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:37:22,593 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:37:22,593 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:37:22,773 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:37:22,887 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:37:23,076 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:37:23,204 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:37:23,306 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:38:36,465 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:38:36,465 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:38:36,573 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:36,683 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:38:38,392 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:38:38,392 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:38:38,521 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:38,667 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:38:38,830 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:38,938 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:38:39,026 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:38:43,219 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:38:43,220 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:38:43,329 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:43,436 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:38:43,601 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:43,710 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:38:43,791 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:38:43,950 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:44,057 DEBUG UPDATE CNEODTB001.user
+						 SET forename = trim('Alex'), surname = trim('Raison')
+						WHERE user_id = 'RAISONA' 
+2017-06-15 16:38:44,170 DEBUG DELETE FROM CNEODTB001.user_role_link					 
+					  WHERE user_id = 'RAISONA' 
+					    AND role_id <> 2
+2017-06-15 16:38:44,321 DEBUG INSERT INTO CNEODTB001.user_role_link (user_id, role_id)
+	           SELECT DISTINCT 'RAISONA', '2'
+	             FROM CNEODTB001.user_role_link AS ur1
+	               EXCEPTION JOIN CNEODTB001.user_role_link AS ur2 ON ur2.user_id = 'RAISONA'
+	                                                      AND ur2.role_id = '2' 
+2017-06-15 16:38:44,469 DEBUG DELETE FROM CNEODTB001.user_group_link					 
+					  WHERE user_id = 'RAISONA' 
+					    AND group_id <> '1'  
+2017-06-15 16:38:44,611 DEBUG INSERT INTO CNEODTB001.user_group_link (user_id, group_id)
+	           SELECT DISTINCT 'RAISONA', '1'
+	             FROM CNEODTB001.user_group_link AS ug1
+	               EXCEPTION JOIN CNEODTB001.user_group_link AS ug2 ON ug2.user_id = 'RAISONA'
+	                                                      AND ug2.group_id = '1'  
+2017-06-15 16:38:44,753 DEBUG UPDATE CNEODTB001.person
+						 SET ueeml = trim('alex.raison3@jhc.co.uk')
+						WHERE uecode = '*'||'RAISONA' 
+2017-06-15 16:38:48,084 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:38:48,084 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:38:48,192 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:48,307 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:38:49,712 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:38:49,713 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:38:49,822 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:49,939 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:38:50,098 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:38:50,208 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:38:50,293 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:41:23,084 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:41:23,085 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:41:23,191 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:41:23,303 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:41:23,472 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:41:23,581 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:41:23,662 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:43:44,534 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:43:44,535 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:43:44,643 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:43:44,755 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:43:44,918 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:43:45,024 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:43:45,111 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:43:47,902 DEBUG Call made: http://172.16.2.61:5002/user/ by user raisona
+2017-06-15 16:43:47,902 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:43:48,012 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:43:48,122 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 16:43:49,867 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:43:49,867 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:43:49,975 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:43:50,082 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:43:50,250 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:43:50,362 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:43:50,448 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group
+2017-06-15 16:46:25,433 DEBUG Call made: http://172.16.2.61:5002/user/RAISONA by user raisona
+2017-06-15 16:46:25,434 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:46:25,683 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:46:25,823 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB001.user AS u
+					     LEFT OUTER JOIN CNEODTB001.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB001.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB001.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB001.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:46:25,997 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '001' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:46:26,112 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB001.role
+2017-06-15 16:46:26,202 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB001.permission_user_group

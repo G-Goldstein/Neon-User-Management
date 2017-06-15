@@ -1,11 +1,7 @@
 {% extends "base.html" %}{% block content %}
 
-			<form style="float: left;">
-			<input Type="button" Value="Back" Onclick="window.location.href='{{url_for('customerList')}}'" class="btn btn-primary">
-			</form>
-
 			<form style="float: right;">
-			<input Type="button" Value="New User" Onclick="window.location.href='{{url_for('newUser', firmcode=firmcode)}}'" class="btn btn-primary">
+			<input Type="button" Value="New User" Onclick="window.location.href='{{url_for('newUser')}}'" class="btn btn-primary">
 			</form>
 
 			<table id="main_table" class="table table-striped table-bordered">
@@ -38,7 +34,7 @@
 				   
 					{% for user in users %}
 					<tr>
-						<td><a href="{{url_for('userDetail', firmcode = firmcode, user_id=user[0]) }}">{{ user[0] }}</a></td>
+						<td><a href="{{url_for('userDetail', user_id=user[0]) }}">{{ user[0] }}</a></td>
 						<td>{{user[1]}}</td>
 						<td>{{user[2]}}</td>
 						<td>{{user[3]}}</td>

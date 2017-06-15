@@ -57,13 +57,13 @@ def execute_query(sql):
 
 
 
-def getCurrentLibrary(firmcode):
+def getCurrentLibrary():
 
 	sql = '''SELECT envllb              
 					  FROM envconfig.envlib    
 					WHERE envlen = 'CNEOLIV' || '{}' 
 					  AND envlap = '*BASE'     
-					  AND envlsq = 10'''.format(str(firmcode))   
+					  AND envlsq = 10'''.format(os.environ['FIRMCODE'] )   
 
 	result = execute_query(sql)
 	library = result.fetchone()	
@@ -131,10 +131,10 @@ class UserForm(Form):
 	enabledInLdap = SelectField('Enabled in LDAP', choices=[('Yes','Yes'), ('No', 'No')])
 	resetPasswordAndPassphrase = SelectField('Reset Password and Passphrase to "password" and "12345678"', choices=[('No','No'), ('Yes', 'Yes')])
 	
-	def __init__(self, firmcode, isNew, *args, **kwargs):
+	def __init__(self, isNew, *args, **kwargs):
 		super(UserForm, self).__init__(*args, **kwargs)	
 	
-		library = getCurrentLibrary(firmcode)
+		library = getCurrentLibrary()
 
 		results = execute_query('''SELECT DISTINCT role_id, role_description FROM {}.role'''.format(library))
 		self.role_id.choices = []
@@ -164,17 +164,9 @@ class LdapError(Error):
 #########################################################
 # Methods
 #########################################################
-def getCustomers():
+def getUsers():
 
-	results = execute_query("SELECT enveen FROM envconfig.envenv WHERE enveen LIKE 'CNEOLIV%' ")
-	
-	return results.fetchall()
-
-
-
-def getUsers(firmcode):
-
-	library = getCurrentLibrary(firmcode)
+	library = getCurrentLibrary()
 
 	sql = '''SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
 					   FROM {}.user AS u
@@ -192,9 +184,9 @@ def getUsers(firmcode):
 
 
 
-def getUser(firmcode, user_id):
+def getUser(user_id):
 
-	library = getCurrentLibrary(firmcode)
+	library = getCurrentLibrary()
 
 	sql = '''SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
 					   FROM {}.user AS u
@@ -228,9 +220,9 @@ def getUser(firmcode, user_id):
 
 
 
-def updateUser(firmcode, user_id, forename, surname, group_id, role_id, email, shouldBeEnabledInLdap, resetPasswordAndPassphrase):
+def updateUser(user_id, forename, surname, group_id, role_id, email, shouldBeEnabledInLdap, resetPasswordAndPassphrase):
 
-	library = getCurrentLibrary(firmcode)
+	library = getCurrentLibrary()
 
 	# Update the user
 	sql = '''UPDATE {}.user
@@ -276,7 +268,7 @@ def updateUser(firmcode, user_id, forename, surname, group_id, role_id, email, s
 	c = getLdapConnection()
 
 	c.search(search_base = 'dc=jhc,dc=net',
-         search_filter = '(cn={})'.format(user_id),
+         search_filter = '(uid={})'.format(email),
          search_scope = SUBTREE,
          attributes=ALL_ATTRIBUTES)
 
@@ -301,9 +293,9 @@ def updateUser(firmcode, user_id, forename, surname, group_id, role_id, email, s
 
 
 
-def createUser(firmcode, user_id, forename, surname, group_id, role_id, email):
+def createUser(user_id, forename, surname, group_id, role_id, email):
 
-	library = getCurrentLibrary(firmcode)
+	library = getCurrentLibrary()
 
 	sql = '''INSERT INTO {}.user (userid, title, fornam, surnam,
                        paswrd, pasexp, mangid, failat, enabled, uecode)
@@ -347,9 +339,9 @@ def addUserToLdap(user_id, email, name):
 
 
 
-def removeUser(firmcode, user_id):
+def removeUser(user_id):
 
-	library = getCurrentLibrary(firmcode)
+	library = getCurrentLibrary()
 
 	execute_query("DELETE FROM {}.user_group_link WHERE user_id = '{}' ".format(library, user_id))	
 	execute_query("DELETE FROM {}.user_role_link WHERE user_id = '{}' ".format(library, user_id))		
@@ -407,26 +399,19 @@ def login():
 
 
 
-@app.route('/customer/')
-def customerList():
+@app.route('/user/')
+def userList():
 	 
-	return render_template("customer_list.html", customers=getCustomers())
+	return render_template("user_list.html", users=getUsers())
 
 
 
-@app.route('/customer/<firmcode>/')
-def userList(firmcode):
-	 
-	return render_template("user_list.html", users=getUsers(firmcode), firmcode=firmcode)
+@app.route('/user/<user_id>', methods=['GET','POST'])
+def userDetail( user_id):
 
+	user=getUser(user_id)	
 
-
-@app.route('/customer/<firmcode>/user/<user_id>', methods=['GET','POST'])
-def userDetail(firmcode, user_id):
-
-	user=getUser(firmcode, user_id)	
-
-	userForm = UserForm(isNew = None, firmcode=firmcode)
+	userForm = UserForm(isNew = None)
 
 	if request.method == 'GET':
 
@@ -440,36 +425,36 @@ def userDetail(firmcode, user_id):
 
 	if request.method == 'POST' and userForm.validate():
 		
-		updateUser(firmcode, userForm.user_id.data, userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data, userForm.enabledInLdap.data, userForm.resetPasswordAndPassphrase.data)
+		updateUser(userForm.user_id.data, userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data, userForm.enabledInLdap.data, userForm.resetPasswordAndPassphrase.data)
 		flash('Updated successfully', 'alert-success')
 
-	return render_template("user_detail.html", userForm=userForm, firmcode=firmcode)	
+	return render_template("user_detail.html", userForm=userForm)	
 
 
 
-@app.route('/customer/<firmcode>/new', methods=['GET','POST'])
-def newUser(firmcode):
+@app.route('/new', methods=['GET','POST'])
+def newUser():
 	 
-	userForm = UserForm(isNew = True, firmcode=firmcode)
+	userForm = UserForm(isNew = True)
 	
 	if request.method == 'POST' and userForm.validate():
 		
-		createUser(firmcode, userForm.user_id.data.upper(), userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data)
+		createUser(userForm.user_id.data.upper(), userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data)
 		flash('Created successfully', 'alert-success')
-		logger.info('User {} created successfully'.format(user_id))
-		return redirect(url_for('userList', firmcode=firmcode))	
+		logger.info('User {} created successfully'.format(userForm.user_id.data.upper()))
+		return redirect(url_for('userList'))	
 
-	return render_template("user_detail.html", userForm=userForm, firmcode=firmcode)		
+	return render_template("user_detail.html", userForm=userForm)		
 
 
 
-@app.route('/customer/<firmcode>/user/<user_id>/delete', methods=['POST'])
-def deleteUser(firmcode, user_id):
+@app.route('/user/<user_id>/delete', methods=['POST'])
+def deleteUser(user_id):
 
-	removeUser(firmcode, user_id)
+	removeUser(user_id)
 	flash('Deleted successfully', 'alert-success')
 	logger.info('User {} deleted successfully'.format(user_id))
 
-	return render_template("user_list.html", users=getUsers(firmcode), firmcode=firmcode)
+	return render_template("user_list.html", users=getUsers())
 
 

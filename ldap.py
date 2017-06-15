@@ -40,7 +40,7 @@ print(c.result)
 
 
 c.search(search_base = 'dc=jhc,dc=net',
-         search_filter = '(cn=RAISONA)',
+         search_filter = '(uid=alex.raison3@jhc.co.uk)',
          search_scope = SUBTREE,
          attributes=ALL_ATTRIBUTES)
 
