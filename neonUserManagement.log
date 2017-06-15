@@ -1,0 +1,293 @@
+2017-06-15 13:34:16,947 INFO While this is just chatty
+2017-06-15 13:34:46,205 INFO Application started
+2017-06-15 13:35:24,391 INFO Application started
+2017-06-15 13:35:44,756 INFO Application started
+2017-06-15 13:36:16,456 INFO Application started
+2017-06-15 13:36:19,233 DEBUG userList(002
+2017-06-15 13:41:21,410 INFO Application started
+2017-06-15 13:41:40,887 INFO Application started
+2017-06-15 13:45:42,076 INFO Application started
+2017-06-15 13:46:37,338 INFO Application started
+2017-06-15 13:47:14,805 INFO Application started
+2017-06-15 13:48:30,498 INFO Application started
+2017-06-15 13:49:10,039 INFO Application started
+2017-06-15 13:49:11,679 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM
+2017-06-15 13:49:25,680 DEBUG Call made: http://172.16.2.61:5002/customer/002/
+2017-06-15 13:50:30,969 INFO Application started
+2017-06-15 13:50:31,193 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM by user raisona
+2017-06-15 13:52:51,697 INFO Application started
+2017-06-15 13:52:53,056 DEBUG Call made: http://172.16.2.61:5002/customer/002/ by user raisona
+2017-06-15 13:53:13,204 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/LGTVFARDIM by user raisona
+2017-06-15 13:54:00,394 INFO Application started
+2017-06-15 13:54:00,607 DEBUG Call made: http://172.16.2.61:5002/customer/002/ by user raisona
+2017-06-15 13:54:18,607 INFO Application started
+2017-06-15 13:54:19,472 DEBUG Call made: http://172.16.2.61:5002/customer/ by user raisona
+2017-06-15 13:54:19,472 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:54:20,602 DEBUG SELECT enveen FROM envconfig.envenv WHERE enveen LIKE 'CNEOLIV%' 
+2017-06-15 13:54:27,914 DEBUG Call made: http://172.16.2.61:5002/customer/002/ by user raisona
+2017-06-15 13:54:27,914 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:54:28,024 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:54:28,163 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 13:54:32,999 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM by user raisona
+2017-06-15 13:54:32,999 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:54:33,107 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:54:33,224 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'JHCYOUNM' 
+2017-06-15 13:54:33,414 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:54:33,523 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB002.role
+2017-06-15 13:54:33,606 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB002.permission_user_group
+2017-06-15 13:55:00,328 INFO Application started
+2017-06-15 13:55:00,690 DEBUG Call made: http://172.16.2.61:5002/customer/002/ by user raisona
+2017-06-15 13:55:00,691 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:55:01,382 DEBUG Call made: http://172.16.2.61:5002/login by user None
+2017-06-15 13:55:14,000 INFO Application started
+2017-06-15 13:55:14,203 DEBUG Call made: http://172.16.2.61:5002/login by user None
+2017-06-15 13:55:14,205 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:55:15,305 DEBUG Call made: http://172.16.2.61:5002/customer/ by user raisona
+2017-06-15 13:55:15,305 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:55:15,402 DEBUG SELECT enveen FROM envconfig.envenv WHERE enveen LIKE 'CNEOLIV%' 
+2017-06-15 13:55:16,817 DEBUG Call made: http://172.16.2.61:5002/customer/002/ by user raisona
+2017-06-15 13:55:16,817 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:55:16,924 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:55:17,041 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 13:55:22,416 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/LGTVWHELAH by user raisona
+2017-06-15 13:55:22,416 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:55:22,525 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:55:22,634 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'LGTVWHELAH' 
+2017-06-15 13:55:22,825 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:55:22,938 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB002.role
+2017-06-15 13:55:23,022 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB002.permission_user_group
+2017-06-15 13:55:53,432 INFO Application started
+2017-06-15 13:56:03,776 INFO Application started
+2017-06-15 13:56:04,144 DEBUG Call made: http://172.16.2.61:5002/customer/002/ by user raisona
+2017-06-15 13:56:04,144 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:56:05,260 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:56:05,386 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), r.role_description, g.group_description, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_role AS r ON ur.role_id = r.role_id
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.permission_user_group AS g ON g.group_id = ug.group_id
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					     
+2017-06-15 13:56:07,137 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM by user raisona
+2017-06-15 13:56:07,137 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:56:07,247 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:56:07,356 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'JHCYOUNM' 
+2017-06-15 13:56:58,109 INFO Application started
+2017-06-15 13:56:58,313 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM by user raisona
+2017-06-15 13:56:58,313 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:56:59,439 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:56:59,557 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'JHCYOUNM' 
+2017-06-15 13:57:58,290 INFO Application started
+2017-06-15 13:57:59,612 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM by user raisona
+2017-06-15 13:57:59,612 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 13:58:00,705 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 13:58:00,819 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'JHCYOUNM' 
+2017-06-15 14:37:06,121 INFO Application started
+2017-06-15 14:37:07,573 INFO Application started
+2017-06-15 14:37:07,843 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM by user raisona
+2017-06-15 14:37:07,843 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 14:37:09,059 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 14:37:09,184 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'JHCYOUNM' 
+2017-06-15 14:37:53,482 INFO Application started
+2017-06-15 14:37:53,725 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM by user raisona
+2017-06-15 14:37:53,726 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 14:37:54,876 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 14:37:54,998 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'JHCYOUNM' 
+2017-06-15 14:38:16,153 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 14:38:16,262 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB002.role
+2017-06-15 14:38:16,354 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB002.permission_user_group
+2017-06-15 14:38:49,220 INFO Application started
+2017-06-15 14:38:51,303 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/JHCYOUNM by user raisona
+2017-06-15 14:38:51,304 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 14:38:52,419 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 14:38:52,536 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'JHCYOUNM' 
+2017-06-15 14:39:13,671 ERROR socket connection error while opening: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+2017-06-15 14:39:13,672 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 14:39:13,790 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB002.role
+2017-06-15 14:39:13,879 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB002.permission_user_group
+2017-06-15 14:39:51,207 INFO Application started
+2017-06-15 14:39:59,258 INFO Application started
+2017-06-15 14:40:23,024 ERROR Could not connect to LDAP. Received error message socket connection error while opening: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+2017-06-15 14:42:20,925 INFO Application started
+2017-06-15 14:51:36,412 INFO Application started
+2017-06-15 14:51:37,570 INFO Application started
+2017-06-15 14:52:12,760 ERROR Could not connect to LDAP and received error: socket connection error while opening: [WinError 10060] A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond
+2017-06-15 14:52:40,019 INFO Application started
+2017-06-15 15:27:11,464 INFO Application started
+2017-06-15 15:27:12,572 INFO Application started
+2017-06-15 15:27:46,737 INFO Application started
+2017-06-15 15:28:22,932 INFO Application started
+2017-06-15 15:28:39,114 INFO Application started
+2017-06-15 15:30:10,484 INFO Application started
+2017-06-15 15:30:37,973 INFO Application started
+2017-06-15 15:31:22,142 INFO Application started
+2017-06-15 15:32:51,501 INFO Application started
+2017-06-15 15:33:42,404 INFO Application started
+2017-06-15 15:33:47,144 INFO Application started
+2017-06-15 15:34:08,725 INFO Application started
+2017-06-15 15:34:37,127 INFO Application started
+2017-06-15 15:35:15,004 INFO Application started
+2017-06-15 15:35:16,125 INFO Application started
+2017-06-15 15:37:48,424 INFO Application started
+2017-06-15 15:37:58,816 INFO Application started
+2017-06-15 15:43:58,777 INFO Application started
+2017-06-15 15:45:18,127 INFO Application started
+2017-06-15 15:45:56,379 INFO Application started
+2017-06-15 15:46:24,618 INFO Application started
+2017-06-15 15:47:18,923 INFO Application started
+2017-06-15 15:55:30,347 INFO Application started
+2017-06-15 15:56:32,471 INFO Application started
+2017-06-15 15:56:49,697 INFO Application started
+2017-06-15 16:05:17,688 INFO Application started
+2017-06-15 16:07:38,029 INFO Application started
+2017-06-15 16:10:33,348 INFO Application started
+2017-06-15 16:10:34,442 INFO Application started
+2017-06-15 16:10:55,020 INFO Application started
+2017-06-15 16:10:56,172 INFO Application started
+2017-06-15 16:10:56,368 DEBUG Call made: http://172.16.2.61:5002/customer/002/user/RAISONA by user raisona
+2017-06-15 16:10:56,369 DEBUG SELECT * FROM sysibm.sysdummy1
+2017-06-15 16:10:57,757 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:10:57,967 DEBUG SELECT trim(u.userid), trim(u.forename), trim(u.surname), ur.role_id, ug.group_id, trim(p.ueeml)
+					   FROM CNEODTB002.user AS u
+					     LEFT OUTER JOIN CNEODTB002.wfusrs AS w ON u.userid = w.wfuusr
+					     LEFT OUTER JOIN CNEODTB002.user_role_link AS ur ON u.userid = ur.userid
+					     LEFT OUTER JOIN CNEODTB002.user_group_link AS ug ON u.userid = ug.userid
+					     LEFT OUTER JOIN CNEODTB002.person AS p ON u.percod = p.uecode
+					  WHERE u.userid = 'RAISONA' 
+2017-06-15 16:10:58,394 DEBUG SELECT envllb              
+					  FROM envconfig.envlib    
+					WHERE envlen = 'CNEOLIV' || '002' 
+					  AND envlap = '*BASE'     
+					  AND envlsq = 10
+2017-06-15 16:10:58,544 DEBUG SELECT DISTINCT role_id, role_description FROM CNEODTB002.role
+2017-06-15 16:10:58,671 DEBUG SELECT DISTINCT group_id, group_description FROM CNEODTB002.permission_user_group

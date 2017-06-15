@@ -1,34 +1,60 @@
 from flask import Blueprint, session, flash, redirect, url_for, render_template, request
-from ldap3 import Connection, Server, ANONYMOUS, SIMPLE, SYNC, ASYNC, ALL, SUBTREE
+from ldap3 import Connection, Server, ANONYMOUS, SIMPLE, SYNC, ASYNC, ALL, SUBTREE, ALL_ATTRIBUTES, MODIFY_REPLACE
 from flask.ext.wtf import Form
 from wtforms import TextField, SelectField, HiddenField, validators, IntegerField, PasswordField 
 from wtforms_components import read_only
 from wtforms.validators import Length, Required, Email
 
-import jaydebeapi, os, json, jpype
+import jaydebeapi, os, json, jpype, logging
 import sqlalchemy.pool as pool
 
 from app import app
+
+
+
+# Logging
+logger = logging.getLogger('neonUserManagement')
+hdlr = logging.FileHandler('neonUserManagement.log')
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr) 
+
+if 'LOGGING_LEVEL' in os.environ and os.environ['LOGGING_LEVEL'] == 'DEBUG':
+	logger.setLevel(logging.DEBUG)
+else:
+	logger.setLevel(logging.INFO)
+
+logger.info('Application started')
+
+
 
 def getconn():
 
 	path = os.path.join(os.getcwd(),'app','jt400.jar')
 	return jaydebeapi.connect('com.ibm.as400.access.AS400JDBCDriver', 'jdbc:as400://10.195.2.70;ccsid=285;translate binary=true;naming=system;prompt=false;', [session['username'],  session['password']], path,)
 
-
 mypool =  pool.QueuePool(getconn, max_overflow=10, pool_size=5)
 
 
-def execute_query(sql, parms = []):
+
+def execute_query(sql):
 	
-	connection = mypool.connect()
-	if not jpype.isThreadAttachedToJVM():
-		jpype.attachThreadToJVM()
+	logger.debug(sql)
 
-	cursor = connection.cursor()
-	cursor.execute(sql, parms)
+	try:
 
+		connection = mypool.connect()
+		if not jpype.isThreadAttachedToJVM():
+			jpype.attachThreadToJVM()
+
+		cursor = connection.cursor()
+		cursor.execute(sql)
+
+	except Exception as err:
+		logger.error('SQL failed with error message: {}'.format(str(err)))
+		
 	return cursor
+
 
 
 def getCurrentLibrary(firmcode):
@@ -42,7 +68,20 @@ def getCurrentLibrary(firmcode):
 	result = execute_query(sql)
 	library = result.fetchone()	
 	return library[0]			  
+
+
+
+def getLdapConnection():
+
+	try:
+		s = Server(os.environ['LDAP_HOST'], get_info=ALL)
+		c = Connection(s, user='cn=root,dc=jhc,dc=net', password=os.environ['LDAP_PASSWORD'], auto_bind=True)
+	except Exception as err:
+		logger.error('Could not connect to LDAP and received error: {}'.format(str(err)))
+
+	return c
 	
+
 
 def logged_in():
 
@@ -59,18 +98,21 @@ def logged_in():
 	
 	return True	
 
+
+
 #########################################################
 # Classes
 #########################################################
 class User:
 
-	def __init__(self, user_id, forename, surname, email, group_id, role_id):
+	def __init__(self, user_id, forename, surname, email, group_id, role_id, enabledInLdap):
 		self.user_id = user_id
 		self.forename = forename
 		self.surname = surname
 		self.email = email
 		self.group_id = group_id
 		self.role_id = role_id
+		self.enabledInLdap = enabledInLdap
 
 
 class LoginForm(Form):
@@ -86,6 +128,8 @@ class UserForm(Form):
 	email = TextField('Email', validators = [validators.Length(max=50, min=1), validators.Email()])
 	role_id = SelectField('Role', coerce=int)
 	group_id = SelectField('Group', coerce=int)
+	enabledInLdap = SelectField('Enabled in LDAP', choices=[('Yes','Yes'), ('No', 'No')])
+	resetPasswordAndPassphrase = SelectField('Reset Password and Passphrase to "password" and "12345678"', choices=[('No','No'), ('Yes', 'Yes')])
 	
 	def __init__(self, firmcode, isNew, *args, **kwargs):
 		super(UserForm, self).__init__(*args, **kwargs)	
@@ -104,6 +148,17 @@ class UserForm(Form):
 
 		if not isNew:
 			read_only(self.user_id)
+		else:
+			read_only(self.enabledInLdap)
+
+
+class Error(Exception):
+    pass
+
+class LdapError(Error):
+
+    def __init__(self, message):
+        self.message = message
 
 
 #########################################################
@@ -114,6 +169,7 @@ def getCustomers():
 	results = execute_query("SELECT enveen FROM envconfig.envenv WHERE enveen LIKE 'CNEOLIV%' ")
 	
 	return results.fetchall()
+
 
 
 def getUsers(firmcode):
@@ -134,7 +190,9 @@ def getUsers(firmcode):
 	
 	return results.fetchall()
 
-def getUser(firmcode, userid):
+
+
+def getUser(firmcode, user_id):
 
 	library = getCurrentLibrary(firmcode)
 
@@ -144,14 +202,33 @@ def getUser(firmcode, userid):
 					     LEFT OUTER JOIN {}.user_role_link AS ur ON u.userid = ur.userid
 					     LEFT OUTER JOIN {}.user_group_link AS ug ON u.userid = ug.userid
 					     LEFT OUTER JOIN {}.person AS p ON u.percod = p.uecode
-					  WHERE u.userid = '{}' '''.format(library, library, library, library, library, userid)
+					  WHERE u.userid = '{}' '''.format(library, library, library, library, library, user_id)
 
 	result = execute_query(sql)	
 	result = result.fetchone()
 
-	return User(result[0], result[1], result[2], result[5], result[4], result[3])
+	c = getLdapConnection()
 
-def updateUser(firmcode, user_id, forename, surname, group_id, role_id, email):
+	c.search(search_base = 'dc=jhc,dc=net',
+         search_filter = '(cn={})'.format(user_id),
+         search_scope = SUBTREE,
+         attributes=ALL_ATTRIBUTES)
+
+	if c.response:
+
+		if c.response[0]['attributes']['enabled']:
+			enabledInLdap = 'Yes'
+		else:
+			enabledInLdap = 'No'
+
+	else:
+		enabledInLdap = 'No'
+
+	return User(result[0], result[1], result[2], result[5], result[4], result[3], enabledInLdap)
+
+
+
+def updateUser(firmcode, user_id, forename, surname, group_id, role_id, email, shouldBeEnabledInLdap, resetPasswordAndPassphrase):
 
 	library = getCurrentLibrary(firmcode)
 
@@ -195,6 +272,33 @@ def updateUser(firmcode, user_id, forename, surname, group_id, role_id, email):
 
 	execute_query(sql)	
 
+	# Update LDAP status
+	c = getLdapConnection()
+
+	c.search(search_base = 'dc=jhc,dc=net',
+         search_filter = '(cn={})'.format(user_id),
+         search_scope = SUBTREE,
+         attributes=ALL_ATTRIBUTES)
+
+	if not c.response:
+		addUserToLdap(user_id, email, forename + ' ' + surname)
+
+	if shouldBeEnabledInLdap == 'Yes':
+		operation = 'TRUE'
+	else:
+		operation = 'FALSE'
+
+	c.modify('uid={},cn=users,dc=jhc,dc=net'.format(email),
+	         {'enabled': [(MODIFY_REPLACE, [operation])] })
+
+	if c.result['description'] != 'success':
+		logger.error('Enabling user {} in LDAP failed with error {}'.format(email, c.result))
+		raise LdapError('Enabling user {} in LDAP failed with error {}'.format(email, c.result))
+
+	# Reset Password
+	if resetPasswordAndPassphrase == 'Yes':
+		c.modify('uid={},cn=users,dc=jhc,dc=net'.format(email), {'userPassphrase': [(MODIFY_REPLACE, ['Rq/jLUDcTw0BGniFd2ij8IsC0581TIEomUUDpqOQNC/D5wsEgsi2zXNIr9wFjd2mD5h6RvUGsGhnW/tYGvUHxBuap2KTwnIIMzPNdhXgDBA='])], 'userPassword':  [(MODIFY_REPLACE, ['{SHA}W6ph5Mm5Pz8GgiULbPgzG37mj9g='])]})		
+
 
 
 def createUser(firmcode, user_id, forename, surname, group_id, role_id, email):
@@ -223,60 +327,51 @@ def createUser(firmcode, user_id, forename, surname, group_id, role_id, email):
 	sql = '''INSERT INTO {}.person (uecode, ueqry, ueeml) VALUES('{}', 'Y', '{}')'''.format(library, '*' + user_id, email)
 	execute_query(sql)
 
-	addUserToLdap(user_id, forename + ' ' + surname, email)
+	addUserToLdap(user_id, email, forename + ' ' + surname)
 
 
-def addUserToLdap(user_id, name, email):
 
-	s = Server(os.environ['LDAP_HOST'], get_info=ALL)
-	c = Connection(s, user='cn=root,dc=jhc,dc=net', password=os.environ['LDAP_PASSWORD'], auto_bind=True)
+def addUserToLdap(user_id, email, name):
+
+	c = getLdapConnection()
 
 	attributes={'cn': user_id, 'personCode': '*' + user_id, 'sn': 'NEON', 'enabled':'TRUE', 'failCount': 0, 'firstLogin': 'TRUE', 'forgottenPasswordEnabled': 'TRUE', 'forgottenPasswordFailCount': 0, 'givenName': name, 'mail': email, 'passwordExpiry': '2199-01-01', 'passphraseExpiry': '2199-01-01', 'sessionTimeout': 0, 'uid': email, 'userPassphrase': 'AGfWPhjVcsABPwlA9aY0wUMCCKnvQST2N1kDxqoi+lukzyIE+52dgsYG694F1MkzN687+G4GOsdanwEnw/kH5OczKAdmSrYIrSvw3CxS/CI=', 'userPassword': '{SHA}cMzZAHM41tgd07YnFiG5z5qX6gA='}
 
 	c.add('uid=' + email.strip() + ',cn=users,dc=jhc,dc=net',  ['figaroPersonV2','inetOrgPerson'], attributes)
-	print(c.result)
+
+	if c.result['description'] != 'success':
+		logger.error('Adding user to LDAP {} failed with error {}'.format(email, c.result))
+		raise LdapError('Adding user to LDAP {} failed with error {}'.format(email, c.result))
 
 	c.unbind()
+
 
 
 def removeUser(firmcode, user_id):
 
 	library = getCurrentLibrary(firmcode)
 
-	sql = '''DELETE FROM {}.user_group_link WHERE user_id = '{}' '''.format(library, user_id)
-	execute_query(sql)	
+	execute_query("DELETE FROM {}.user_group_link WHERE user_id = '{}' ".format(library, user_id))	
+	execute_query("DELETE FROM {}.user_role_link WHERE user_id = '{}' ".format(library, user_id))		
+	execute_query("DELETE FROM {}.wfusrs WHERE wfuusr = '{}' ".format(library, user_id))	
 
-	sql = '''DELETE FROM {}.user_role_link WHERE user_id = '{}' '''.format(library, user_id)
-	execute_query(sql)		
-
-	sql = '''DELETE FROM {}.wfusrs WHERE wfuusr = '{}' '''.format(library, user_id)
-	execute_query(sql)	
-
-	sql = '''SELECT ueeml FROM {}.person WHERE uecode = '*'|| '{}' '''.format(library, user_id)
-	result = execute_query(sql)	
+	result = execute_query("SELECT ueeml FROM {}.person WHERE uecode = '*'|| '{}' ".format(library, user_id))	
 	result = result.fetchone()
 	email = result[0]	
 
-	sql = '''DELETE FROM {}.person WHERE uecode = '*' || '{}' '''.format(library, user_id)
-	execute_query(sql)	
+	execute_query("DELETE FROM {}.person WHERE uecode = '*' || '{}' ".format(library, user_id))	
+	execute_query("DELETE FROM {}.user WHERE user_id = '{}' ".format(library, user_id))	
 
-	sql = '''DELETE FROM {}.user WHERE user_id = '{}' '''.format(library, user_id)
-	execute_query(sql)	
+	c = getLdapConnection()
 
-	if email:
-		removeUserFromLdap(email)
+	c.delete('uid={},cn=users,dc=jhc,dc=net'.format(email.strip()))
 
-
-
-def removeUserFromLdap(email):
-
-	s = Server(os.environ['LDAP_HOST'], get_info=ALL)
-	c = Connection(s, user='cn=root,dc=jhc,dc=net', password=os.environ['LDAP_PASSWORD'], auto_bind=True)
-
-	c.delete('uid=' + email.strip() + ',cn=users,dc=jhc,dc=net')
-	print(c.result)
+	if c.result['description'] != 'success':
+		logger.error('Adding user to LDAP {} failed with error {}'.format(email, c.result))
+		raise LdapError('Deleting user from LDAP {} failed with error {}'.format(email, c.result))
 
 	c.unbind()
+
 
 
 #########################################################
@@ -285,10 +380,14 @@ def removeUserFromLdap(email):
 @app.before_request
 def before_request():
 
-	# This redirects every request to the login page if not already logged in
+	if 'username' in session:
+		logger.debug('Call made: {} by user {}'.format(request.url, session['username']))
+	else:
+		logger.debug('Call made: {}'.format(request.url))	
 
 	if not logged_in() and request.endpoint != 'login':
 		return redirect(url_for('login'))	
+
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -307,10 +406,12 @@ def login():
 	return render_template("login.html", form=form)	
 
 
+
 @app.route('/customer/')
 def customerList():
 	 
 	return render_template("customer_list.html", customers=getCustomers())
+
 
 
 @app.route('/customer/<firmcode>/')
@@ -319,10 +420,11 @@ def userList(firmcode):
 	return render_template("user_list.html", users=getUsers(firmcode), firmcode=firmcode)
 
 
-@app.route('/customer/<firmcode>/user/<userid>', methods=['GET','POST'])
-def userDetail(firmcode, userid):
-	 
-	user=getUser(firmcode, userid)	
+
+@app.route('/customer/<firmcode>/user/<user_id>', methods=['GET','POST'])
+def userDetail(firmcode, user_id):
+
+	user=getUser(firmcode, user_id)	
 
 	userForm = UserForm(isNew = None, firmcode=firmcode)
 
@@ -334,13 +436,15 @@ def userDetail(firmcode, userid):
 		userForm.group_id.data = user.group_id
 		userForm.role_id.data = user.role_id
 		userForm.email.data = user.email
+		userForm.enabledInLdap.data = user.enabledInLdap
 
 	if request.method == 'POST' and userForm.validate():
 		
-			updateUser(firmcode, userForm.user_id.data, userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data)
-			flash('Updated successfully', 'alert-success')
+		updateUser(firmcode, userForm.user_id.data, userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data, userForm.enabledInLdap.data, userForm.resetPasswordAndPassphrase.data)
+		flash('Updated successfully', 'alert-success')
 
 	return render_template("user_detail.html", userForm=userForm, firmcode=firmcode)	
+
 
 
 @app.route('/customer/<firmcode>/new', methods=['GET','POST'])
@@ -350,16 +454,22 @@ def newUser(firmcode):
 	
 	if request.method == 'POST' and userForm.validate():
 		
-			createUser(firmcode, userForm.user_id.data.upper(), userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data)
-			flash('Created successfully', 'alert-success')
-			return redirect(url_for('userList', firmcode=firmcode))	
+		createUser(firmcode, userForm.user_id.data.upper(), userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data)
+		flash('Created successfully', 'alert-success')
+		logger.info('User {} created successfully'.format(user_id))
+		return redirect(url_for('userList', firmcode=firmcode))	
 
 	return render_template("user_detail.html", userForm=userForm, firmcode=firmcode)		
 
 
+
 @app.route('/customer/<firmcode>/user/<user_id>/delete', methods=['POST'])
 def deleteUser(firmcode, user_id):
-	 
+
 	removeUser(firmcode, user_id)
+	flash('Deleted successfully', 'alert-success')
+	logger.info('User {} deleted successfully'.format(user_id))
 
 	return render_template("user_list.html", users=getUsers(firmcode), firmcode=firmcode)
+
+
