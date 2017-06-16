@@ -1,11 +1,10 @@
 from flask import Flask
+from flask_wtf.csrf import CsrfProtect
 
 app = Flask(__name__)
-app.config['WTF_CSRF_CHECK_DEFAULT'] = False
 
-app.config['SECRET_KEY'] = 'you-will-never-guess-JOBS5!'
-app.config['REMEMBER_COOKIE_DURATION'] = 604800
+app.secret_key = 'you-will-never-guess-JOBS5!'
 
-
+CsrfProtect(app)
 
 from app import views
