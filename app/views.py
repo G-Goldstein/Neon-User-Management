@@ -90,12 +90,9 @@ def getLdapConnection():
 
 def logged_in():
 
-	logger.debug('in logged_in')
 
 	if 'username' not in session or 'password' not in session or session['username'] == None or session['password'] == None:
 		return False
-
-	logger.debug('in logged_in further down')
 
 	try:
 		execute_query('SELECT * FROM sysibm.sysdummy1')
@@ -382,15 +379,12 @@ def removeUser(user_id):
 def before_request():
 
 	if 'username' in session:
-		logger.debug('Call made: {} by user {}'.format(request.url, session['username']))
+		logger.debug('{} made: {} by user {}'.format(request.method, request.url, session['username']))
 	else:
-		logger.debug('Call made: {}'.format(request.url))	
+		logger.debug('{} made: {}'.format(request.method, request.url))	
 
-	logger.debug('in before request')
 	if not logged_in() and request.endpoint != 'login':
-		logger.debug('in before request if')
 		return redirect(url_for('login'))	
-	logger.debug('in before request after if')	
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -398,16 +392,10 @@ def login():
 
 	form = LoginForm()
 
-	logger.debug('in login config: {}'.format(app.config['WTF_CSRF_ENABLED']))
-
 	if request.method == 'POST' and form.validate_on_submit():
-
-		logger.debug('in logged_in posted')
 
 		session['username'] = form.username.data
 		session['password'] = form.password.data
-
-		logger.debug('session username: ' + session['username'])
 
 		if logged_in():
 			return redirect(url_for('userList'))		
