@@ -5,7 +5,7 @@ from wtforms import TextField, SelectField, HiddenField, validators, IntegerFiel
 from wtforms_components import read_only
 from wtforms.validators import Length, Required, Email
 
-import jaydebeapi, os, json, jpype, logging
+import jaydebeapi, os, json, jpype, logging, sys
 import sqlalchemy.pool as pool
 
 from app import app
@@ -19,12 +19,17 @@ formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr) 
 
+hdlr = logging.StreamHandler(sys.stdout)
+formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr) 
+
 if 'LOGGING_LEVEL' in os.environ and os.environ['LOGGING_LEVEL'] == 'DEBUG':
 	logger.setLevel(logging.DEBUG)
 else:
 	logger.setLevel(logging.INFO)
 
-logger.info('Application started')
+logger.info('Application started over firmcode {}'.format(os.environ['FIRMCODE']))
 
 
 
@@ -439,6 +444,12 @@ def newUser():
 	
 	if request.method == 'POST' and userForm.validate():
 		
+		#if emailAlreadyInUse(userForm.email.data):
+		#	userForm.email.errors.append('Email already in use')
+
+		#if user_idAlreadyInUse(userForm.user_id.data.upper()):
+		#	userForm.user_id.errors.append('Username already in us')
+
 		createUser(userForm.user_id.data.upper(), userForm.forename.data, userForm.surname.data, userForm.group_id.data, userForm.role_id.data, userForm.email.data)
 		flash('Created successfully', 'alert-success')
 		logger.info('User {} created successfully'.format(userForm.user_id.data.upper()))
