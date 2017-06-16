@@ -89,10 +89,10 @@ def getLdapConnection():
 
 
 def logged_in():
-
+	print('in logged in')
 	if 'username' not in session or 'password' not in session or session['username'] == None or session['password'] == None:
 		return False
-
+	print('got here')
 	try:
 		execute_query('SELECT * FROM sysibm.sysdummy1')
 	except Exception as err:
@@ -391,14 +391,15 @@ def before_request():
 def login():
 
 	form = LoginForm()
-	
+	print('inlogin')
 	if form.validate_on_submit():
-
+		print('inposted')
 		session['username'] = form.username.data
 		session['password'] = form.password.data
+		print('session username: ' + session['username'])
 
 		if logged_in():
-			return redirect(url_for('customerList'))		
+			return redirect(url_for('userList'))		
 		
 	return render_template("login.html", form=form)	
 
