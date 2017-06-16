@@ -90,7 +90,7 @@ def getLdapConnection():
 
 def logged_in():
 
-	logger.debug('in logged_in')
+	logger.debug('in logged_in {} {}'.format(session['username'], session['password']))
 
 	if 'username' not in session or 'password' not in session or session['username'] == None or session['password'] == None:
 		return False
@@ -398,9 +398,9 @@ def login():
 
 	form = LoginForm()
 
-	logger.debug('in login')
+	logger.debug('in login {}'.format(request.method))
 
-	if form.validate_on_submit():
+	if request.method == 'POST' and form.validate_on_submit():
 
 		logger.debug('in logged_in posted')
 
