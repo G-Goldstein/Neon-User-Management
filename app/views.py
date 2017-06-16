@@ -398,7 +398,7 @@ def login():
 
 	form = LoginForm()
 
-	logger.debug('in login {}'.format(request.method))
+	logger.debug('in login config: {}'.format(app.config['WTF_CSRF_ENABLED']))
 
 	if request.method == 'POST' and form.validate_on_submit():
 
