@@ -386,9 +386,11 @@ def before_request():
 	else:
 		logger.debug('Call made: {}'.format(request.url))	
 
+	logger.debug('in before request')
 	if not logged_in() and request.endpoint != 'login':
+		logger.debug('in before request if')
 		return redirect(url_for('login'))	
-
+	logger.debug('in before request after if')	
 
 
 @app.route('/login', methods=['GET', 'POST'])
