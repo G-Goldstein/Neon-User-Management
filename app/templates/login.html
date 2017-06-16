@@ -1,14 +1,9 @@
+{% from 'macros.html' import render_form %}
+
 {% extends "base.html" %}{% block content %}
 
-	<div class="wrapper">	
-	
-		<form method="POST" action="{{url_for('login')}}" >
-			<h3>Please login with your JHCTST1 username and password</h3>
-			{{form.hidden_tag()}}
-			{{form.username(placeholder="Username")}}
-			{{form.password(placeholder="Password")}}
-			<input type="submit" name="submit" class="btn btn-primary" value="Login" ></input>
-		</form>
-	</div>
+			<div style="clear: left;">
+			{{ render_form(form) }}
+			</div>	
 
 {% endblock %}

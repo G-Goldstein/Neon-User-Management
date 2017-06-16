@@ -90,7 +90,7 @@ def getLdapConnection():
 
 def logged_in():
 
-	logger.debug('in logged_in {} {}'.format(session['username'], session['password']))
+	logger.debug('in logged_in')
 
 	if 'username' not in session or 'password' not in session or session['username'] == None or session['password'] == None:
 		return False
