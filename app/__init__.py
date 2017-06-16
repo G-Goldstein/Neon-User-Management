@@ -3,8 +3,6 @@ from flask_wtf.csrf import CsrfProtect
 
 app = Flask(__name__)
 
-app.secret_key = 'you-will-never-guess-JOBS5!'
-
-CsrfProtect(app)
+app.config['WTF_CSRF_CHECK_DEFAULT'] = False
 
 from app import views
