@@ -30,7 +30,8 @@ else:
 	logger.setLevel(logging.INFO)
 
 logger.info('Application started over firmcode {}'.format(os.environ['FIRMCODE']))
-
+logger.info('CSRF status: {}'.format(app.config['WTF_CSRF_ENABLED']))
+logger.info('Secret key: {}'.format(app.config['SECRET_KEY']))
 
 
 def getconn():
