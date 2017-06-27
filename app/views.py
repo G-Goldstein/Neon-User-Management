@@ -50,8 +50,8 @@ def execute_query(sql):
 	try:
 
 		connection = mypool.connect()
-		if not jpype.isThreadAttachedToJVM():
-			jpype.attachThreadToJVM()
+		#if not jpype.isThreadAttachedToJVM():
+		#	jpype.attachThreadToJVM()
 
 		cursor = connection.cursor()
 		cursor.execute(sql)
