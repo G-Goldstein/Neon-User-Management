@@ -52,6 +52,8 @@ fi
 fix-permissions ./
 # set permissions for any installed artifacts
 fix-permissions /opt/app-root
+fix-permissions /usr/lib/
+mkdir /usr/lib/jvm/
 
 # remove pip temporary directory
 rm -rf /tmp/pip_build_default
