@@ -15,4 +15,6 @@ else:
 	
 app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
+app.config['JVM_PATH'] = os.environ['JVM_PATH']
+
 from app import views

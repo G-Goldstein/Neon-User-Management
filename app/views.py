@@ -39,8 +39,13 @@ def getconn():
 	path = os.path.join(os.getcwd(),'app','jt400.jar')
 	return jaydebeapi.connect('com.ibm.as400.access.AS400JDBCDriver', 'jdbc:as400://10.195.2.70;ccsid=285;translate binary=true;naming=system;prompt=false;', [session['username'],  session['password']], path,)
 
-mypool =  pool.QueuePool(getconn, max_overflow=10, pool_size=5)
 
+print('JVM_PATH: ' + app.config['JVM_PATH'])
+
+jpype.startJVM(app.config['JVM_PATH'])
+
+
+mypool =  pool.QueuePool(getconn, max_overflow=10, pool_size=5)
 
 
 def execute_query(sql):
@@ -50,8 +55,8 @@ def execute_query(sql):
 	try:
 
 		connection = mypool.connect()
-		if not jpype.isThreadAttachedToJVM():
-			jpype.attachThreadToJVM()
+		#if not jpype.isThreadAttachedToJVM():
+		#	jpype.attachThreadToJVM()
 
 		cursor = connection.cursor()
 		cursor.execute(sql)
