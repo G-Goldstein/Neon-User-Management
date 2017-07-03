@@ -38,6 +38,7 @@ def getconn():
 
 	path = os.path.join(os.getcwd(),'app','jt400.jar')
 	print('JT400.jar path: ' + path)
+	print('CLASSPATH: ' + os.environ['CLASSPATH'])
 	return jaydebeapi.connect('com.ibm.as400.access.AS400JDBCDriver', 'jdbc:as400://10.195.2.70;ccsid=285;translate binary=true;naming=system;prompt=false;', [session['username'],  session['password']], path,)
 
 
